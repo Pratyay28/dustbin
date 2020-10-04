@@ -6,7 +6,7 @@ const Body = Matter.Body;
 var object1,object2,object3;
 var ground;
 var world;
-var paperBall
+var paperBall;
 function preload()
 
 {
@@ -18,11 +18,15 @@ function setup() {
 	var options = {
 		isStatic:true
 	}
-	object1=createSprite(1000, 570, 20,200,options);
-	object2=createSprite(1200, 570, 20,200,options);
-	object3=createSprite(1100, 660, 200,20,options);
+	object1=new Dustbin(1000, 570, 20,200,options);
+	object2=new Dustbin(1200, 570, 20,200,options);
+	object3=new Dustbin(1100, 660, 200,20,options);
 
-    paperBall=new Paper(300,660,20,20);
+    var ball_options ={
+        restitution: 1.0
+    }
+    ball=Bodies.circle(200,100,20,ball_options);
+    World.add(world,ball);
 
 	engine = Engine.create();
 	world = engine.world;
@@ -38,10 +42,11 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(0);
-  paperBall.display();
-  keyPressed();
-  drawSprites();
+  
  
+  drawSprites();
+  ellipse(ball.position.x,ball.position.y,20,20);
+
 }
 
 
